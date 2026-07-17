@@ -11,7 +11,7 @@ import config
 
 def baixar_zip ():
     """Baixa o aqruivo .zip do Google Drive"""
-    config.PASTA_DADOS.mkdir(exist_ok=TRUE)
+    config.PASTA_DADOS.mkdir(exist_ok=True)
     destino = config.PASTA_DADOS / ""
 
     if destino.exists():

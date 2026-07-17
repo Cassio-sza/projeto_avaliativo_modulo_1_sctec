@@ -16,20 +16,20 @@ CREATE TABLE raw_viagem (
     num_proposta VARCHAR(20),
     situacao VARCHAR (50),
     viagem_urgente VARCHAR(5),
-    just_viagem_urg VARCHAR(255),
+    just_viagem_urg VARCHAR(4000),
     cod_orgao_superior VARCHAR(20),
     nome_orgao_superior VARCHAR(255),
     cod_orgao_solicitante VARCHAR(20),
     nome_orgao_solicitante VARCHAR(255),
     cpf_viajante varchar(20),
-    nome varchar(255),
+    nome_viajante varchar(255),
     cargo VARCHAR(255),
     funcao varchar(255),
 	descricao_funcao varchar(255),
     periodo_data_inicio varchar(10),
     periodo_data_fim varchar(10),
-    destinos varchar(255),
-    motivo varchar(255),
+    destinos varchar(4000),
+    motivo varchar(4000),
     valor_diaria varchar(20),
     valor_passagem varchar(20),
     valor_devolucao varchar(20),
@@ -38,8 +38,8 @@ CREATE TABLE raw_viagem (
 
 DROP TABLE IF EXISTS raw_passagem;
 CREATE TABLE raw_passagem(
-	id_passagem varchar(10),
-	id_proposta varchar(10),
+	id_passagem varchar(20),
+	id_viagem varchar(20),
 	meio_transporte varchar(50),
 	pais_origem_ida varchar(60),
 	uf_origem_ida varchar(40),
@@ -59,24 +59,24 @@ CREATE TABLE raw_passagem(
     hora_emissao varchar (10)
 ) ENGINE=InnoDB;
 
-DROP TABLE IF EXISTS raw_pagamentos;
+DROP TABLE IF EXISTS raw_pagamento;
 CREATE TABLE raw_pagamento(
 	id_pagamento varchar(20),
-    id_proposta varchar(10),
+    id_viagem varchar(20),
     cod_orgao_superior varchar(20),
     nome_orgao_superior varchar(255),
     cod_orgao_pagador varchar(20),
     nome_orgao_pagador varchar(255),
     cod_up_pagadora varchar(20),
-    nome_up_pagadora varchar(20),
+    nome_up_pagadora varchar(4000),
     tipo_pagamento varchar(50),
 	valor varchar(10)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS raw_trecho;
 CREATE TABLE raw_trecho(
-	id_trecho varchar(10),
-    id_proposta varchar(10),
+	id_trecho varchar(20),
+    id_viagem varchar(20),
     sequencia_trecho varchar(40),
     origem_data varchar(10),
     origem_pais varchar(40),
@@ -176,5 +176,4 @@ CREATE TABLE silver_trecho (
     CONSTRAINT chk_num_diarias CHECK (numero_diarias >= 0)
 );
 
-ALTER TABLE raw_pagamento
-MODIFY COLUMN id_proposta VARCHAR(255);
+SELECT * FROM raw_viagem;
