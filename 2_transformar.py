@@ -43,7 +43,7 @@ SELECT
     TRIM(id_viagem), num_proposta, nome_orgao_pagador, nome_ug_pagadora, tipo_pagamento, 
     CAST(REPLACE(REPLACE(NULLIF(TRIM(valor), ''), '.', ''), ',', '.') AS DECIMAL(10,2))
 FROM raw_pagamento
-WHERE TRIM(id_viagem) IN (SELECT id_viagem FROM silver_viagem)
+WHERE TRIM(id_viagem) IN (SELECT id_viagem FROM silver_viagem);
 """
 
 SQL_PASSAGEM = """
@@ -58,7 +58,7 @@ SELECT
     CAST(REPLACE(REPLACE(NULLIF(TRIM(taxa_servico), ''), '.', ''), ',', '.') AS DECIMAL(10,2)), 
     STR_TO_DATE(NULLIF(TRIM(data_emissao), ''), '%d/%m/%Y')
 FROM raw_passagem
-WHERE TRIM(id_viagem) IN (SELECT id_viagem FROM silver_viagem)
+WHERE TRIM(id_viagem) IN (SELECT id_viagem FROM silver_viagem);
 """
 
 SQL_TRECHO = """
@@ -75,7 +75,7 @@ SELECT
     destino_uf, destino_cidade, meio_transporte, 
     CAST(REPLACE(REPLACE(NULLIF(TRIM(numero_diarias), ''), '.', ''), ',', '.') AS DECIMAL(10,2))
 FROM raw_trecho
-WHERE TRIM(id_viagem) IN (SELECT id_viagem FROM silver_viagem)
+WHERE TRIM(id_viagem) IN (SELECT id_viagem FROM silver_viagem);
 """
 
 # =======================================================

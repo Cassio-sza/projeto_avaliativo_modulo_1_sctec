@@ -6,7 +6,6 @@ CREATE DATABASE IF NOT EXISTS transparencia
 
 USE transparencia;
 
-show tables;
 
 -- =============================================================
 -- Criação das tabelas RAW 
@@ -14,7 +13,7 @@ show tables;
 
 DROP TABLE IF EXISTS raw_viagem;
 CREATE TABLE raw_viagem (
-    id_viagem VARCHAR(20),
+    id_viagem VARCHAR(50),
     num_proposta VARCHAR(20),
     situacao VARCHAR (50),
     viagem_urgente VARCHAR(5),
@@ -40,8 +39,8 @@ CREATE TABLE raw_viagem (
 
 DROP TABLE IF EXISTS raw_passagem;
 CREATE TABLE raw_passagem(
-    id_passagem varchar(20),
-    id_viagem varchar(20),
+    id_viagem varchar(50),
+    num_proposta varchar(20),
     meio_transporte varchar(50),
     pais_origem_ida varchar(60),
     uf_origem_ida varchar(40),
@@ -57,13 +56,13 @@ CREATE TABLE raw_passagem(
     cidade_destino_volta varchar(80),
     valor_passagem varchar(20),
     taxa_servico varchar(20),
-    data_emissao varchar (10),
-    hora_emissao varchar (10)
+    data_emissao varchar(10),
+    hora_emissao varchar(10)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS raw_pagamento;
 CREATE TABLE raw_pagamento(
-    id_viagem varchar(20),
+    id_viagem varchar(50),
     num_proposta varchar(20),
     cod_orgao_superior varchar(20),
     nome_orgao_superior varchar(255),
@@ -72,13 +71,14 @@ CREATE TABLE raw_pagamento(
     cod_ug_pagadora varchar(20),
     nome_ug_pagadora varchar(4000),
     tipo_pagamento varchar(50),
-    valor varchar(10)
+    valor varchar(20)
 ) ENGINE=InnoDB;
+
 
 DROP TABLE IF EXISTS raw_trecho;
 CREATE TABLE raw_trecho(
-    id_trecho varchar(20),
-    id_viagem varchar(20),
+    id_viagem varchar(50),
+    num_proposta varchar(20),
     sequencia_trecho varchar(40),
     origem_data varchar(10),
     origem_pais varchar(40),
@@ -98,7 +98,7 @@ CREATE TABLE raw_trecho(
 -- =============================================================
 DROP table if exists silver_viagem;
 CREATE TABLE silver_viagem (
-    id_viagem VARCHAR(20) NOT NULL,
+    id_viagem VARCHAR(50) NOT NULL,
     num_proposta VARCHAR(20),
     situacao VARCHAR(50),
     viagem_urgente VARCHAR(5),
@@ -125,7 +125,7 @@ CREATE TABLE silver_viagem (
 DROP TABLE IF EXISTS silver_passagem;
 CREATE TABLE silver_passagem (
     id_passagem INT AUTO_INCREMENT,
-    id_viagem VARCHAR(20) NOT NULL,
+    id_viagem VARCHAR(50) NOT NULL,
     meio_transporte VARCHAR(50),
     pais_origem_ida VARCHAR(60),
     uf_origem_ida VARCHAR(40),
@@ -148,7 +148,7 @@ CREATE TABLE silver_passagem (
 DROP TABLE IF EXISTS silver_pagamento;
 CREATE TABLE silver_pagamento (
     id_pagamento INT AUTO_INCREMENT,
-    id_viagem VARCHAR(20) NOT NULL,
+    id_viagem VARCHAR(50) NOT NULL,
     num_proposta VARCHAR(20),
     nome_orgao_pagador VARCHAR(255),
     nome_ug_pagadora VARCHAR(255),
@@ -164,7 +164,7 @@ CREATE TABLE silver_pagamento (
 DROP TABLE IF EXISTS silver_trecho;
 CREATE TABLE silver_trecho (
     id_trecho INT AUTO_INCREMENT,
-    id_viagem VARCHAR(20) NOT NULL,
+    id_viagem VARCHAR(50) NOT NULL,
     sequencia_trecho INT,
     origem_data DATE,
     origem_uf VARCHAR(40), 
@@ -178,5 +178,6 @@ CREATE TABLE silver_trecho (
     PRIMARY KEY (id_trecho),
     FOREIGN KEY (id_viagem) REFERENCES silver_viagem(id_viagem),
     
+    CONSTRAINT uk_viagem_sequencia UNIQUE (id_viagem, sequencia_trecho),
     CONSTRAINT chk_num_diarias CHECK (numero_diarias >= 0)
 ) ENGINE=InnoDB;

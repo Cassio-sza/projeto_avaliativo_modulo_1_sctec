@@ -60,6 +60,9 @@ def carregar_csv(conexao, zip_aberto, nome_csv, tabela):
             chunksize=config.TAMANHO_BLOCO,
         )
         for pedaco in pedacos:
+            if 'id_viagem' in pedaco.columns:
+                pedaco['id_viagem'] = pedaco['id_viagem'].astype(str).str.strip()
+
             linhas = pedaco.values.tolist()
             # um "%s" para cada coluna do CSV
             marcadores = ", ".join(["%s"] * len(pedaco.columns))
