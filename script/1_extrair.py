@@ -2,8 +2,8 @@ import pandas as pd
 import gdown
 import zipfile
 
-import banco
-import config
+import script.banco as banco
+import script.config as config
 
 # ---------------------------------------------------------------------------
 # Baixar o arquivo .zip do Drive
@@ -12,7 +12,7 @@ import config
 def baixar_zip ():
     """Baixa o aqruivo .zip do Google Drive"""
     config.PASTA_DADOS.mkdir(exist_ok=True)
-    destino = config.PASTA_DADOS / ""
+    destino = config.PASTA_DADOS / "../data/transparencia.zip"
 
     if destino.exists():
         print('Arquivo existente - Pulando download!')

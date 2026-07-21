@@ -6,7 +6,7 @@ banco.py
 import mysql.connector
 from mysql.connector import Error
 
-from config import MYSQL_CONFIG
+from script.config import MYSQL_CONFIG
 
 
 def conectar():

@@ -1,4 +1,4 @@
-import banco
+import script.banco as banco
 
 # =======================================================
 # 1 - Esvaziar as tabelas SILVER
